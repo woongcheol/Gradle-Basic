@@ -5,6 +5,66 @@ plugins {
     id 'org.jetbrains.kotlin.android' version '1.6.10' apply false
 }
 
-task clean(type: Delete) {
-    delete rootProject.buildDir
+task helloFirst {
+    println("Hello First!")
+}
+
+task helloSecond {
+    println("Hello Second!")
+}
+
+task greeting {
+    doFirst {
+        println 'hello'
+    }
+
+    doLast {
+        println 'bye'
+    }
+}
+
+task sayHi {
+    def loopCount = count.toInteger()
+    for (def i in 1..loopCount) {
+        println('LoopCount: ' + i)
+    }
+}
+
+task first(dependsOn:['third', 'second']) {
+    doFirst {
+        printMeassge('doFirst: first')
+    }
+    doLast {
+        printMeassge('doLast: first')
+    }
+}
+
+task second {
+    doFirst {
+        printMeassge('doFirst: second')
+    }
+    doLast {
+        printMeassge('doLast: second')
+    }
+}
+
+task third {
+    doFirst {
+        printMeassge('doFirst: third')
+    }
+    doLast {
+        printMeassge('doLast: third')
+    }
+}
+
+String printMeassge(String msg){
+    println msg
+}
+
+task someTask {
+    ext.message = 'say Hi'
+}
+
+task sayHi {
+    println someTask.message
 }
